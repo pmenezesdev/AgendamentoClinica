@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Consulta</title>
+</head>
+<body>
+    <h1>Agendar Nova Consulta</h1>
+
+    {% if message %}
+        <p style="color: {% if message_type == 'success' %}green{% else %}red{% endif %};">{{ message }}</p>
+    {% endif %}
+
+    <form action="{% url 'core:agendar_consulta' %}" method="post">
+        {% csrf_token %}
+
+        {% if selected_medico %}
+            <p>Agendando com: <strong>Dr(a). {{ selected_medico.nome }}</strong> ({{ selected_medico.especialidade }})</p>
+            <input type="hidden" name="medico_id" value="{{ selected_medico.id }}">
+        {% else %}
+            <label for="medico_id">Escolha o Médico:</label><br>
+            <select name="medico_id" id="medico_id" required>
+                <option value="">---</option>
+                {% for medico in medicos %}
+                    <option value="{{ medico.id }}">Dr(a). {{ medico.nome }} - {{ medico.especialidade }}</option>
+                {% endfor %}
+            </select><br><br>
+        {% endif %}
+
+        <label for="paciente_nome">Seu Nome:</label><br>
+        <input type="text" id="paciente_nome" name="paciente_nome" required><br><br>
+
+        <label for="data">Escolha a Data:</label><br>
+        <input type="date" id="data" name="data" required><br><br>
+
+        <p>O sistema encontrará o primeiro horário disponível em intervalos de 30 minutos.</p>
+
+        <button type="submit">Agendar</button>
+    </form>
+    <br>
+    <a href="{% url 'core:medicos_list' %}">Ver Lista de Médicos</a>
+</body>
+</html>

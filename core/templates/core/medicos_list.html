@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Médicos</title>
+</head>
+<body>
+    <h1>Médicos Disponíveis</h1>
+    <ul>
+        {% for medico in medicos %}
+            <li>
+                Dr(a). {{ medico.nome }} - {{ medico.especialidade }}
+                (Atendimento: {{ medico.horario_inicio_atendimento|time:"H:i" }} - {{ medico.horario_fim_atendimento|time:"H:i" }})
+                <a href="{% url 'core:agendar_consulta_com_medico' medico.id %}">Agendar Consulta</a>
+            </li>
+        {% empty %}
+            <li>Nenhum médico cadastrado.</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'core:agendar_consulta' %}">Agendar sem pré-seleção</a>
+</body>
+</html>
