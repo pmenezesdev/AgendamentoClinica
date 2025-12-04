@@ -36,7 +36,7 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente local
 1.  **Clonar o repositório:**
 
     ```bash
-    git clone <URL_DO_SEU_REPOSITÓRIO>
+    git clone https://github.com/pmenezesdev/AgendamentoClinica
     cd Sistema-Agendamento-Caruaru/AgendamentoClinica
     ```
 
